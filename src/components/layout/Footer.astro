@@ -1,0 +1,132 @@
+---
+/**
+ * Footer Component for Rustrial OS
+ * Site footer with navigation and copyright
+ */
+import { cn } from '@/lib/cn';
+import { getNavRoutes } from '@/config/routes';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import { siteConfig } from '@/config/site.config';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const navItems = getNavRoutes();
+const currentYear = new Date().getFullYear();
+---
+
+<footer class={cn('border-t border-border/40 bg-background', className)}>
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid gap-8 md:grid-cols-[2fr_1fr_1fr] lg:grid-cols-[2fr_1fr_1fr_1fr]">
+      {/* Brand */}
+      <div class="space-y-4">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-brand rounded-md flex items-center justify-center text-white font-bold">
+            R
+          </div>
+          <span class="font-display text-xl font-bold tracking-tight text-brand">
+            {siteConfig.name}
+          </span>
+        </a>
+        <p class="text-sm text-foreground-muted max-w-xs">
+          {siteConfig.description}
+        </p>
+      </div>
+
+      {/* Navigation */}
+      <div>
+        <h3 class="font-semibold mb-4 text-sm">Navigation</h3>
+        <ul class="space-y-2 text-sm">
+          {navItems.map(({ label, path }) => (
+            <li>
+              <a
+                href={path}
+                class="text-foreground-muted hover:text-foreground transition-colors"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Resources */}
+      <div>
+        <h3 class="font-semibold mb-4 text-sm">Resources</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a
+              href="https://github.com/lazzerex/rustrial-os"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground-muted hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              GitHub
+              <Icon name="external-link" size="xs" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/lazzerex/rustrial-os/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground-muted hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              Releases
+              <Icon name="external-link" size="xs" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Connect */}
+      <div>
+        <h3 class="font-semibold mb-4 text-sm">Connect</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a
+              href="https://github.com/lazzerex/rustrial-os/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground-muted hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              Report Issues
+              <Icon name="external-link" size="xs" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/lazzerex/rustrial-os/discussions"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-foreground-muted hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              Discussions
+              <Icon name="external-link" size="xs" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Bottom Bar */}
+    <div class="mt-8 pt-8 border-t border-border/40 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-sm text-foreground-muted">
+        © {currentYear} {siteConfig.name}. All rights reserved.
+      </p>
+      <div class="flex items-center gap-4">
+        <a
+          href="https://github.com/lazzerex/rustrial-os"
+          target="_blank"
+          class="text-foreground-muted hover:text-foreground transition-colors"
+          aria-label="GitHub"
+        >
+          <Icon name="github" size="sm" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

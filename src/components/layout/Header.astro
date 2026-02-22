@@ -1,0 +1,93 @@
+---
+/**
+ * Header Component for Rustrial OS
+ * Navigation header with logo, nav links, and CTA
+ */
+import { cn } from '@/lib/cn';
+import { getNavRoutes } from '@/config/routes';
+import Button from '@/components/ui/form/Button/Button.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import { siteConfig } from '@/config/site.config';
+
+interface Props {
+  position?: 'fixed' | 'sticky' | 'static';
+  showCta?: boolean;
+  cta?: { label?: string; href?: string };
+  class?: string;
+}
+
+const {
+  position = 'sticky',
+  showCta = false,
+  cta = { label: 'Get Started', href: '#download' },
+  class: className,
+} = Astro.props;
+
+const navItems = getNavRoutes();
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
+
+const headerClasses = cn(
+  'w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50',
+  position === 'sticky' && 'sticky top-0',
+  position === 'fixed' && 'fixed top-0',
+  className
+);
+---
+
+<header class={headerClasses}>
+  <div class="container mx-auto px-4">
+    <div class="flex h-16 items-center justify-between">
+      {/* Logo */}
+      <a href="/" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 bg-brand rounded-md flex items-center justify-center text-white font-bold">
+          R
+        </div>
+        <span class="font-display text-xl font-bold tracking-tight text-brand group-hover:text-brand-dark transition-colors">
+          {siteConfig.name}
+        </span>
+      </a>
+
+      {/* Desktop Navigation */}
+      <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
+        {navItems.map(({ label, path }) => (
+          <a
+            href={path}
+            class={cn(
+              'rounded-md px-3 py-2 text-sm font-medium transition-all',
+              isActive(path)
+                ? 'bg-secondary text-foreground'
+                : 'text-foreground-muted hover:text-foreground hover:bg-secondary/70'
+            )}
+            aria-current={isActive(path) ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      {/* Actions */}
+      <div class="flex items-center gap-2">
+        {showCta && (
+          <Button size="sm" href={cta.href}>
+            {cta.label}
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        )}
+        
+        <Button
+          size="sm"
+          variant="ghost"
+          href="https://github.com/lazzerex/rustrial-os"
+          target="_blank"
+        >
+          <Icon name="github" size="sm" />
+          <span class="sr-only">GitHub</span>
+        </Button>
+      </div>
+    </div>
+  </div>
+</header>
