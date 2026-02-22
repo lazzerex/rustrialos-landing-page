@@ -1,0 +1,59 @@
+---
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+
+const stack = [
+  {
+    id: 'rust',
+    name: 'Rust',
+    desc: 'Memory safe systems programming',
+    icon: 'shield' as const,
+    version: '100%',
+  },
+  {
+    id: 'baremetal',
+    name: 'Bare Metal',
+    desc: 'Direct hardware control, no OS',
+    icon: 'cpu' as const,
+    version: 'x86_64',
+  },
+  {
+    id: 'async',
+    name: 'Async/Await',
+    desc: 'Cooperative multitasking pattern',
+    icon: 'zap' as const,
+    version: 'Native',
+  },
+  {
+    id: 'network',
+    name: 'TCP/IP Stack',
+    desc: 'Complete networking from scratch',
+    icon: 'network' as const,
+    version: 'Custom',
+  },
+];
+---
+
+<section class="border-y border-border bg-background-secondary py-[var(--space-section-sm)]">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid grid-cols-2 gap-[var(--space-content-gap)] md:grid-cols-4">
+      {stack.map((item, i) => (
+        <div data-tech={item.id} class={`scroll-fade-in-up delay-${i}`}>
+          <Card variant="elevated" padding="md" hover={true} class="h-full text-center md:text-left">
+            <div class="flex flex-col items-center gap-[var(--space-stack-sm)] md:items-start">
+              <div class="flex w-full items-start justify-between">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-900/30 text-brand-500">
+                  <Icon name={item.icon} size="lg" />
+                </div>
+                <Badge variant="brand" size="sm" pill>{item.version}</Badge>
+              </div>
+              <span class="font-display text-lg font-bold text-foreground">{item.name}</span>
+              <p class="text-sm text-foreground-muted">{item.desc}</p>
+            </div>
+          </Card>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
