@@ -1,0 +1,125 @@
+---
+/**
+ * Getting Started Section
+ * Quick start guide for Rustrial OS
+ */
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+
+const steps = [
+  {
+    number: '01',
+    title: 'Download ISO',
+    description: 'Get the latest bootable ISO image from GitHub releases',
+    icon: 'download' as const,
+    command: 'wget rustrial-os.iso',
+  },
+  {
+    number: '02',
+    title: 'Create Bootable USB',
+    description: 'Write the ISO to a USB drive or run in a VM',
+    icon: 'terminal' as const,
+    command: 'dd if=rustrial-os.iso of=/dev/sdX',
+  },
+  {
+    number: '03',
+    title: 'Boot & Explore',
+    description: 'Boot from USB and explore the OS features',
+    icon: 'zap' as const,
+    command: 'qemu-system-x86_64 -cdrom rustrial-os.iso',
+  },
+];
+---
+
+<section id="download" class="w-full py-[var(--space-section-lg)] bg-background">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Get <span class="text-brand-500">Started</span>
+      </h2>
+      <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+        Run Rustrial OS in minutes with these simple steps
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {steps.map((step, index) => (
+        <div class={`relative scroll-slide-in-left delay-${index}`}>
+          {/* Connection line for desktop */}
+          {index < steps.length - 1 && (
+            <div class="hidden md:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-brand-500/50 to-transparent" />
+          )}
+          
+          <Card variant="elevated" padding="lg" class="relative group hover:border-brand-500/50 hover-lift transition-all">
+            <div class="flex flex-col gap-4">
+              {/* Step number badge */}
+              <div class="flex items-center justify-between">
+                <span class="text-5xl font-bold text-brand-500/20 group-hover:text-brand-500/40 transition-colors">
+                  {step.number}
+                </span>
+                <div class="w-12 h-12 rounded-full bg-brand-500/10 flex items-center justify-center group-hover:bg-brand-500/20 transition-colors">
+                  <Icon name={step.icon} size="md" class="text-brand-500" />
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div>
+                <h3 class="text-xl font-bold text-foreground mb-2">
+                  {step.title}
+                </h3>
+                <p class="text-foreground-muted text-sm mb-4">
+                  {step.description}
+                </p>
+                
+                {/* Command preview */}
+                <div class="bg-black/40 rounded-md p-3 border border-border">
+                  <code class="text-xs font-mono text-brand-400">
+                    $ {step.command}
+                  </code>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      ))}
+    </div>
+
+    {/* Build from source */}
+    <div class="max-w-3xl mx-auto scroll-scale-in animation-delay-600">
+      <Card variant="elevated" padding="lg" class="bg-gradient-to-br from-background to-background-secondary hover-glow">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold mb-2">Or Build from Source</h3>
+          <p class="text-foreground-muted">
+            Clone the repository and build Rustrial OS yourself
+          </p>
+        </div>
+        
+        <div class="bg-black/60 rounded-lg p-6 border border-brand-500/20">
+          <pre class="text-sm font-mono text-gray-300 overflow-x-auto"><code>git clone https://github.com/lazzerex/rustrial-os.git
+cd rustrial-os
+cargo build --release
+./build.sh</code></pre>
+        </div>
+        
+        <div class="mt-6 flex flex-wrap gap-3 justify-center">
+          <a 
+            href="https://github.com/lazzerex/rustrial-os/releases" 
+            target="_blank"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-brand-500 text-white rounded-lg font-semibold hover:bg-brand-600 hover-scale transition-all"
+          >
+            <Icon name="download" size="sm" />
+            Download Latest Release
+          </a>
+          <a 
+            href="https://github.com/lazzerex/rustrial-os" 
+            target="_blank"
+            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-brand-500 text-brand-500 rounded-lg font-semibold hover:bg-brand-500 hover:text-white hover-scale transition-all"
+          >
+            <Icon name="github" size="sm" />
+            View on GitHub
+          </a>
+        </div>
+      </Card>
+    </div>
+  </div>
+</section>
