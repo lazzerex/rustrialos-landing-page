@@ -1,12 +1,354 @@
+/* =============================================================================
+   Rustrial OS Global Styles
+   Dark theme with red accents for OS landing page
+   ============================================================================= */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-shadow {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+/* -------------------------------------------------------------------------
+   CSS Variables (Design Tokens)
+   ------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    /* Colors - Dark theme with red accents */
+    --color-background: 0 0% 0%;
+    --color-background-secondary: 0 0% 10%;
+    --color-background-tertiary: 0 0% 15%;
+    
+    --color-foreground: 0 0% 100%;
+    --color-foreground-secondary: 0 0% 90%;
+    --color-foreground-muted: 0 0% 70%;
+    --color-foreground-subtle: 0 0% 50%;
+
+    /* Brand - Red accents */
+    --color-brand-500: 0 72% 51%;  /* #dc2626 approx */
+    --color-brand-600: 0 74% 42%;  /* darker red */
+    --color-brand-700: 0 72% 35%;
+    --color-brand-400: 0 84% 60%;
+    --color-brand-900: 0 70% 20%;
+
+    /* Semantic Colors */
+    --color-primary: var(--color-foreground);
+    --color-accent: var(--color-brand-500);
+
+    --color-border: 0 0% 20%;
+    --color-border-strong: 0 0% 30%;
+
+    --color-card: 0 0% 5%;
+    --color-card-border: 0 0% 15%;
+
+    --color-muted: 0 0% 20%;
+    --color-muted-foreground: 0 0% 60%;
+
+    --color-ring: var(--color-brand-500);
+
+    --color-success: 142 70% 70%;
+    --color-warning: 45 90% 70%;
+    --color-error: 0 72% 51%;
+
+    /* Spacing */
+    --space-section-sm: 4rem;
+    --space-section-md: 6rem;
+    --space-section-lg: 8rem;
+    --space-section-xl: 10rem;
+    --space-section-gap: 3rem;
+
+    --space-content-gap: 2rem;
+    --space-heading-gap: 1.5rem;
+    --space-stack-sm: 0.5rem;
+    --space-stack-md: 1rem;
+    --space-stack-lg: 1.5rem;
+
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-3xl: 2rem;
+    --radius-full: 9999px;
   }
-  .text-glow {
-    text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+
+  * {
+    @apply border-border;
   }
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    line-height: 1.6;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Custom Scrollbar
+   ------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--color-background-secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-muted));
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-brand-500));
+}
+
+/* -------------------------------------------------------------------------
+   Animations
+   ------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px hsl(var(--color-brand-500) / 0.3),
+                0 0 10px hsl(var(--color-brand-500) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px hsl(var(--color-brand-500) / 0.5),
+                0 0 25px hsl(var(--color-brand-500) / 0.3),
+                0 0 35px hsl(var(--color-brand-500) / 0.2);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Scroll-triggered Animations
+   Elements stay hidden until they scroll into view
+   ------------------------------------------------------------------------- */
+.scroll-fade-in,
+.scroll-fade-in-up,
+.scroll-slide-in-left,
+.scroll-slide-in-right,
+.scroll-scale-in {
+  opacity: 0;
+  transition: none;
+}
+
+.scroll-fade-in.in-view {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.scroll-fade-in-up.in-view {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.scroll-slide-in-left.in-view {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.scroll-slide-in-right.in-view {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.scroll-scale-in.in-view {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.delay-0 { animation-delay: 0ms; }
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 200ms; }
+.delay-3 { animation-delay: 300ms; }
+.delay-4 { animation-delay: 400ms; }
+.delay-5 { animation-delay: 500ms; }
+.delay-6 { animation-delay: 600ms; }
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animation-delay-800 {
+  animation-delay: 0.8s;
+}
+
+/* -------------------------------------------------------------------------
+   Hover Effects
+   ------------------------------------------------------------------------- */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px hsl(var(--color-brand-500) / 0.3);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px hsl(var(--color-brand-500) / 0.4),
+              0 0 40px hsl(var(--color-brand-500) / 0.2);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-brightness {
+  transition: filter 0.3s ease;
+}
+
+.hover-brightness:hover {
+  filter: brightness(1.2);
+}
+
+/* -------------------------------------------------------------------------
+   Background Patterns
+   ------------------------------------------------------------------------- */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, hsl(0 0% 15%) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(0 0% 15%) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
