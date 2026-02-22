@@ -16,7 +16,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-[Live Demo](#) • [Documentation](#) • [Report Bug](https://github.com/lazzerex/rustrial-os/issues)
+[Live Demo](https://rustrial.vercel.app) • [Documentation](#) • [Report Bug](https://github.com/lazzerex/rustrial-os/issues)
 
 </div>
 
