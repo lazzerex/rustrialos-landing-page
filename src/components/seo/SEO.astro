@@ -1,0 +1,53 @@
+---
+/**
+ * SEO Component
+ * Manages meta tags, Open Graph, and Twitter Card metadata
+ */
+import { siteConfig } from '@/config/site.config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  image,
+  imageAlt,
+  noindex = false,
+  nofollow = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} — ${siteConfig.name}` : siteConfig.name;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://rustrial-os.dev');
+
+// Default OG image
+const ogImage = image || `${canonicalURL.origin}/og-image.png`;
+const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow'].join(', ');
+---
+
+<!-- Primary Meta Tags -->
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL.toString()} />
+<meta name="robots" content={robotsContent} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={pageTitle} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={ogImage} />
+<meta property="og:url" content={canonicalURL.toString()} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:image:alt" content={imageAlt || pageTitle} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
