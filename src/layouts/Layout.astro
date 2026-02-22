@@ -1,66 +1,42 @@
 ---
 import '../styles/global.css';
+import { siteConfig } from '@/config/site.config';
 
 interface Props {
-	title: string;
+	title?: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const { 
+	title = siteConfig.name, 
+	description = siteConfig.description 
+} = Astro.props;
+
+const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth bg-black">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Rustrial OS - High Performance, Memory Safe, Bare Metal Operating System" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+		<title>{pageTitle}</title>
+		
+		<!-- Open Graph / Social -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:site_name" content={siteConfig.name} />
+		
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={description} />
 	</head>
-	<body class="bg-black text-white font-sans antialiased overflow-x-hidden selection:bg-red-600 selection:text-white">
-		<div class="fixed inset-0 pointer-events-none z-[-1] opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-800 via-black to-black"></div>
+	<body class="antialiased">
 		<slot />
 	</body>
 </html>
-
-<style is:global>
-	:root {
-		--accent: 220, 38, 38; /* Red-600 */
-		--accent-light: 239, 68, 68;
-		--accent-dark: 185, 28, 28;
-	}
-	html {
-		font-family: 'Inter', system-ui, sans-serif;
-		background: #000000;
-		color: #ffffff;
-	}
-	code, pre {
-		font-family: 'JetBrains Mono', monospace;
-	}
-	
-	/* Custom scrollbar */
-	::-webkit-scrollbar {
-		width: 10px;
-	}
-	::-webkit-scrollbar-track {
-		background: #0a0a0a;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #333;
-		border-radius: 5px;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background: #ef4444;
-	}
-
-	.text-gradient {
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-image: linear-gradient(45deg, #ef4444, #b91c1c);
-	}
-</style>
