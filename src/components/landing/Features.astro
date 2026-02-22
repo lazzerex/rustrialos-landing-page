@@ -1,0 +1,56 @@
+---
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+
+const features = [
+  {
+    title: 'Memory Safe',
+    description: 'Built with Rust to prevent common bugs like null pointer dereferences and buffer overflows.',
+    icon: 'shield' as const,
+  },
+  {
+    title: 'High Performance',
+    description: 'Zero-cost abstractions ensure bare-metal performance comparable to C/C++.',
+    icon: 'zap' as const,
+  },
+  {
+    title: 'Custom Bootloader',
+    description: 'Full control over the boot process with a custom UEFI/BIOS bootloader implementation.',
+    icon: 'box' as const,
+  },
+  {
+    title: 'Networking Stack',
+    description: 'Complete TCP/IP stack implementation from scratch including Ethernet, IPv4, ICMP, UDP, and TCP.',
+    icon: 'network' as const,
+  },
+  {
+    title: 'Async Concurrency',
+    description: "Modern cooperative multitasking using Rust's async/await pattern.",
+    icon: 'cpu' as const,
+  },
+  {
+    title: 'Graphics Engine',
+    description: 'VGA buffer support and custom graphics engine for desktop environment.',
+    icon: 'terminal' as const,
+  },
+];
+---
+
+<section class="max-w-7xl px-6 w-full py-[var(--space-section-md)]">
+  <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">
+    Core <span class="text-brand-500">Features</span>
+  </h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {features.map((feature, index) => (
+      <Card variant="elevated" padding="lg" hover={true} class={`group hover-lift scroll-scale-in delay-${index % 6}`}>
+        <div class="mb-6 text-brand-500 group-hover:scale-110 transition-transform duration-300">
+          <Icon name={feature.icon} size="xl" />
+        </div>
+        <h3 class="text-2xl font-bold mb-4 font-mono">{feature.title}</h3>
+        <p class="text-foreground-muted leading-relaxed">
+          {feature.description}
+        </p>
+      </Card>
+    ))}
+  </div>
+</section>
