@@ -1,0 +1,116 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { cn } from '@/lib/cn';
+
+interface Props extends HTMLAttributes<'section'> {
+  layout?: 'centered' | 'split';
+  size?: 'md' | 'lg' | 'xl';
+  showGrid?: boolean;
+  showBlob?: boolean;
+}
+
+const {
+  layout = 'centered',
+  size = 'lg',
+  showGrid = false,
+  showBlob = false,
+  class: className,
+  ...attrs
+} = Astro.props;
+
+const sizeClasses = {
+  md: 'py-[var(--space-section-md)]',
+  lg: 'py-[var(--space-section-lg)]',
+  xl: 'py-[var(--space-section-xl)]',
+};
+
+const hasBadge = Astro.slots.has('badge');
+const hasTitle = Astro.slots.has('title');
+const hasDescription = Astro.slots.has('description');
+const hasActions = Astro.slots.has('actions');
+const hasAside = Astro.slots.has('aside');
+
+const alignment = layout === 'centered' ? 'text-center items-center' : 'text-left items-start';
+---
+
+<section 
+  class={cn(
+    'relative w-full overflow-hidden',
+    sizeClasses[size],
+    className
+  )} 
+  {...attrs}
+>
+  {/* Background grid pattern */}
+  {showGrid && (
+    <div
+      class="bg-grid-pattern pointer-events-none absolute inset-0 opacity-40 [mask-image:linear-gradient(to_bottom,white,transparent)]"
+      aria-hidden="true"
+    />
+  )}
+
+  {/* Background blob */}
+  {showBlob && (
+    <div
+      class="pointer-events-none absolute top-[-50%] left-[-50%] w-[200%] h-[200%] opacity-20 animate-pulse"
+      style="background: radial-gradient(circle at center, var(--color-brand-500) 0%, transparent 50%)"
+      aria-hidden="true"
+    />
+  )}
+
+  <div class={cn(
+    'mx-auto grid max-w-6xl items-center gap-[var(--space-section-gap)] px-6 relative z-10',
+    layout === 'split' ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'
+  )}>
+    {/* Content Column */}
+    <div class={cn('flex flex-col', alignment)}>
+      {/* Badge Slot */}
+      {hasBadge && (
+        <div class="mb-[var(--space-heading-gap)]">
+          <slot name="badge" />
+        </div>
+      )}
+
+      {/* Title Slot */}
+      {hasTitle && (
+        <div class={cn(
+          'mb-[var(--space-heading-gap)]',
+          '[&>h1]:font-display [&>h1]:text-5xl [&>h1]:md:text-7xl [&>h1]:lg:text-8xl [&>h1]:font-black [&>h1]:tracking-tight [&>h1]:leading-[1.1] [&>h1]:text-balance',
+        )}>
+          <slot name="title" />
+        </div>
+      )}
+
+      {/* Description Slot */}
+      {hasDescription && (
+        <div class={cn(
+          'mb-[var(--space-stack-lg)] max-w-2xl',
+          '[&>p]:text-lg [&>p]:md:text-xl [&>p]:leading-relaxed [&>p]:text-foreground-muted',
+          layout === 'centered' && 'mx-auto'
+        )}>
+          <slot name="description" />
+        </div>
+      )}
+
+      {/* Actions Slot */}
+      {hasActions && (
+        <div class={cn(
+          'flex w-full flex-col gap-4 sm:w-auto sm:flex-row',
+          layout === 'centered' && 'justify-center'
+        )}>
+          <slot name="actions" />
+        </div>
+      )}
+
+      {/* Default slot for additional content */}
+      <slot />
+    </div>
+
+    {/* Aside Column (for split layout) */}
+    {layout === 'split' && hasAside && (
+      <div class="relative w-full">
+        <slot name="aside" />
+      </div>
+    )}
+  </div>
+</section>
