@@ -1,0 +1,54 @@
+---
+/**
+ * LandingLayout
+ * Layout for landing pages with Header and Footer
+ */
+import BaseLayout from './BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  includeOrgSchema?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  noindex = false,
+  nofollow = false,
+  includeOrgSchema = false,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  imageAlt={imageAlt}
+  noindex={noindex}
+  nofollow={nofollow}
+  includeOrgSchema={includeOrgSchema}
+>
+  <Header slot="header" position="sticky" showCta cta={{ label: 'Get Started', href: '#download' }} />
+
+  <slot />
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<script>
+  import { initScrollAnimations } from '@/lib/scrollAnimation';
+  
+  // Initialize scroll animations when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollAnimations();
+  });
+</script>

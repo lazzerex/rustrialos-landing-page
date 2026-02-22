@@ -1,0 +1,82 @@
+---
+/**
+ * BaseLayout
+ * The foundational layout for all pages
+ */
+import '@/styles/global.css';
+import SEO from '@/components/seo/SEO.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import { createWebsiteSchema, createOrganizationSchema } from '@/lib/schema';
+import type { WebSite, Organization, WithContext } from 'schema-dts';
+import { siteConfig } from '@/config/site.config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  includeOrgSchema?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  noindex = false,
+  nofollow = false,
+  includeOrgSchema = false,
+} = Astro.props;
+
+// Build JSON-LD schemas
+const schemas: Array<WithContext<WebSite> | WithContext<Organization>> = [createWebsiteSchema()];
+if (includeOrgSchema) {
+  schemas.push(createOrganizationSchema());
+}
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ef4444" />
+
+    <!-- SEO -->
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      imageAlt={imageAlt}
+      noindex={noindex}
+      nofollow={nofollow}
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <JsonLd schema={schemas} />
+  </head>
+
+  <body class="min-h-screen bg-background text-foreground antialiased">
+    <!-- Skip to content link -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-brand focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+
+    <slot name="header" />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+  </body>
+</html>
