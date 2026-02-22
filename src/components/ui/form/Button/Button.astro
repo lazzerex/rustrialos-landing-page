@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { cn } from '@/lib/cn';
+import { cva, type VariantProps } from 'class-variance-authority';
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default: 'bg-brand-500 text-white hover:bg-brand-600 active:scale-95',
+        outline: 'border-2 border-foreground/20 text-foreground hover:bg-foreground/10 hover:border-foreground',
+        ghost: 'hover:bg-foreground/10',
+      },
+      size: {
+        sm: 'px-4 py-2 text-sm',
+        md: 'px-6 py-3 text-base',
+        lg: 'px-8 py-4 text-lg',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
+    },
+  }
+);
+
+interface Props extends HTMLAttributes<'a'>, VariantProps<typeof buttonVariants> {
+  href?: string;
+  target?: string;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const { 
+  variant, 
+  size, 
+  class: className, 
+  href,
+  target,
+  type = 'button',
+  ...attrs 
+} = Astro.props;
+---
+
+{href ? (
+  <a 
+    class={cn(buttonVariants({ variant, size }), className)}
+    href={href}
+    target={target}
+    {...attrs}
+  >
+    <slot />
+  </a>
+) : (
+  <button 
+    type={type}
+    class={cn(buttonVariants({ variant, size }), className)}
+    {...attrs}
+  >
+    <slot />
+  </button>
+)}

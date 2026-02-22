@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { cn } from '@/lib/cn';
+import { 
+  Github, 
+  ArrowRight, 
+  Terminal, 
+  Cpu, 
+  Zap, 
+  Shield, 
+  Network,
+  Box,
+  Code,
+  Download,
+  ExternalLink,
+  Check,
+  ChevronRight,
+  type LucideIcon 
+} from 'lucide-react';
+
+const iconMap = {
+  github: Github,
+  'arrow-right': ArrowRight,
+  terminal: Terminal,
+  cpu: Cpu,
+  zap: Zap,
+  shield: Shield,
+  network: Network,
+  box: Box,
+  code: Code,
+  download: Download,
+  'external-link': ExternalLink,
+  check: Check,
+  'chevron-right': ChevronRight,
+} as const;
+
+type IconName = keyof typeof iconMap;
+
+interface Props {
+  name: IconName;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const sizeMap = {
+  xs: 12,
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+};
+
+const { name, size = 'md', class: className } = Astro.props;
+const IconComponent = iconMap[name];
+const iconSize = sizeMap[size];
+---
+
+<IconComponent size={iconSize} className={cn('inline-block', className)} />
