@@ -26,11 +26,11 @@ export const routes = {
   },
   docs: {
     path: '/docs',
-    nav: { show: true, order: 1, label: 'Documentation' },
+    nav: { show: false, order: 1, label: 'Documentation' },
   },
   download: {
     path: '/download',
-    nav: { show: true, order: 2, label: 'Download' },
+    nav: { show: false, order: 2, label: 'Download' },
   },
 } as const;
 
