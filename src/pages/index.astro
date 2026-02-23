@@ -15,6 +15,8 @@ import MetricsSlider from '@/components/landing/MetricsSlider.astro';
 import FloatingTech from '@/components/landing/FloatingTech.astro';
 import CommandShowcase from '@/components/landing/CommandShowcase.astro';
 import { ShellDemo } from '@/components/landing/ShellDemo';
+import Screenshots from '@/components/landing/Screenshots.astro';
+import AboutMe from '@/components/landing/AboutMe.astro';
 ---
 
 <LandingLayout
@@ -43,20 +45,23 @@ import { ShellDemo } from '@/components/landing/ShellDemo';
 
         <Fragment slot="actions">
           <div class="animate-fade-in-up delay-3">
-            <Button size="lg" href="#download">
-              <Icon name="download" size="sm" />
-              Get Started
+            <Button
+              size="lg"
+              href="https://github.com/lazzerex/rustrial-os"
+              target="_blank"
+            >
+              <Icon name="github" size="sm" />
+              View on GitHub
             </Button>
           </div>
           <div class="animate-fade-in-up delay-4">
             <Button
               size="lg"
               variant="outline"
-              href="https://github.com/lazzerex/rustrial-os"
-              target="_blank"
+              href="#about"
             >
-              <Icon name="github" size="sm" />
-              View on GitHub
+              <Icon name="code" size="sm" />
+              About the Creator
             </Button>
           </div>
         </Fragment>
@@ -162,10 +167,14 @@ import { ShellDemo } from '@/components/landing/ShellDemo';
 
     <Features />
 
+    <Screenshots />
+
     <CommandShowcase />
 
     <ShellDemo client:load />
 
     <GettingStarted />
+
+    <AboutMe />
   </main>
 </LandingLayout>
