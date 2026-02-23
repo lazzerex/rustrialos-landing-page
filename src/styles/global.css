@@ -144,6 +144,42 @@
   }
 }
 
+@keyframes marqueeReverse {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideVertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -219,6 +255,22 @@
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marqueeReverse 30s linear infinite;
+}
+
+.animate-slide-vertical {
+  animation: slideVertical 20s linear infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-rotate-gradient {
+  animation: rotateGradient 8s linear infinite;
 }
 
 .animate-fade-in {
@@ -341,6 +393,14 @@
 
 .hover-brightness:hover {
   filter: brightness(1.2);
+}
+
+.pause-animation {
+  animation-play-state: paused !important;
+}
+
+.hover\\:pause-animation:hover {
+  animation-play-state: paused !important;
 }
 
 /* -------------------------------------------------------------------------
