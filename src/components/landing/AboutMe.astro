@@ -1,0 +1,127 @@
+---
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+
+const socialLinks = [
+  {
+    name: 'GitHub',
+    icon: 'github' as const,
+    href: 'https://github.com/lazzerex',
+    label: '@lazzerex',
+  },
+  {
+    name: 'LinkedIn',
+    icon: 'network' as const,
+    href: 'https://www.linkedin.com/in/hsnbinh/',
+    label: 'Connect with me',
+  },
+  {
+    name: 'Email',
+    icon: 'terminal' as const,
+    href: 'mailto:nambinh236@gmail.com',
+    label: 'nambinh236@gmail.com',
+  },
+];
+---
+
+<section id="about" class="w-full py-[var(--space-section-lg)] relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-background via-background-secondary to-background"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(239,68,68,0.1)_0%,transparent_70%)]"></div>
+  
+  <div class="mx-auto max-w-5xl px-6 md:px-8 lg:px-12 relative z-10">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 scroll-fade-in-up">
+        About the <span class="text-brand-500">Creator</span>
+      </h2>
+      <div class="h-1 w-24 bg-gradient-to-r from-transparent via-brand-500 to-transparent mx-auto mb-6"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Main About Card */}
+      <div class="lg:col-span-2 scroll-fade-in-up delay-1">
+        <Card variant="elevated" padding="lg" class="h-full bg-gradient-to-br from-background to-background-secondary">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-2xl font-bold text-foreground mb-4">
+                Hey there!
+              </h3>
+              <div class="space-y-4 text-foreground-muted leading-relaxed">
+                <p>
+                  I'm a Software Engineering student who loves building stuff, both the kind users interact with and the low-level systems that make it all work. Rustrial OS came from wanting to really understand how computers function when you strip away all the abstractions.
+                </p>
+                <p>
+                  I work across the full stack with React and Next.js on the frontend, Laravel for backend APIs, and Flutter for mobile apps. But what really excites me is systems programming with Rust. Beyond this OS, I've built developer tools, image converters, and even a small programming language in Rust just to understand how interpreters work.
+                </p>
+                <p>
+                  I care about performance and clean architecture, but mostly I just like building things to see how they work. Rustrial OS was the ultimate deep dive into bare metal programming, networking stacks, and making something functional from absolutely nothing.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-border">
+              <div class="flex items-center gap-3 text-sm text-foreground-muted">
+                <Icon name="code" size="sm" class="text-brand-500" />
+                <span>Built with <span class="text-brand-500 font-semibold">Rust</span> and way too much curiosity</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* Contact Card */}
+      <div class="lg:col-span-1 scroll-fade-in-up delay-2">
+        <Card variant="elevated" padding="lg" class="h-full bg-gradient-to-br from-background-secondary to-background">
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-xl font-bold text-foreground mb-2">
+                Get in Touch
+              </h3>
+              <p class="text-sm text-foreground-muted">
+                Feel free to reach out for questions, collaborations, or just to chat about OS development!
+              </p>
+            </div>
+
+            <div class="space-y-3">
+              {socialLinks.map((link) => (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-border hover:border-brand-500/50 hover:bg-brand-900/10 transition-all group"
+                >
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full bg-brand-900/30 flex items-center justify-center group-hover:bg-brand-500/20 transition-colors">
+                    <Icon name={link.icon} size="sm" class="text-brand-500" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-sm font-semibold text-foreground group-hover:text-brand-400 transition-colors">
+                      {link.name}
+                    </div>
+                    <div class="text-xs text-foreground-muted truncate">
+                      {link.label}
+                    </div>
+                  </div>
+                  <Icon name="external-link" size="sm" class="text-foreground-muted group-hover:text-brand-500 transition-colors flex-shrink-0" />
+                </a>
+              ))}
+            </div>
+
+            <div class="pt-4 border-t border-border">
+              <p class="text-xs text-foreground-muted text-center">
+                Open to opportunities and collaborations
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+
+    {/* Additional Info */}
+    <div class="mt-12 text-center scroll-scale-in delay-3">
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-brand-900/20 border border-brand-500/30">
+        <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+        <span class="text-sm text-brand-400 font-mono">Always learning, always building</span>
+      </div>
+    </div>
+  </div>
+</section>
