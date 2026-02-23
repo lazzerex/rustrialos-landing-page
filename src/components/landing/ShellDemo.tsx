@@ -209,7 +209,6 @@ Done.`;
                 onChange={(e) => setInput(e.target.value)}
                 className="flex-1 bg-transparent border-none outline-none text-gray-300 font-mono"
                 placeholder="Type a command..."
-                autoFocus
                 spellCheck={false}
               />
             </form>
