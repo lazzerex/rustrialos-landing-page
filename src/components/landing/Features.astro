@@ -5,33 +5,33 @@ import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 const features = [
   {
     title: 'Memory Safe',
-    description: 'Built with Rust to prevent common bugs like null pointer dereferences and buffer overflows.',
+    description: 'Built with Rust to prevent null pointer dereferences, buffer overflows, and memory leaks. 100% safe with zero-cost abstractions.',
     icon: 'shield' as const,
   },
   {
-    title: 'High Performance',
-    description: 'Zero-cost abstractions ensure bare-metal performance comparable to C/C++.',
-    icon: 'zap' as const,
+    title: 'Desktop GUI',
+    description: 'Interactive graphical environment with mouse-driven interface, icon system, and multi-window support.',
+    icon: 'terminal' as const,
   },
   {
-    title: 'Custom Bootloader',
-    description: 'Full control over the boot process with a custom UEFI/BIOS bootloader implementation.',
-    icon: 'box' as const,
+    title: 'RustrialScript',
+    description: 'Stack-based scripting language with VM, control flow, and VGA integration. Run scripts directly in the OS.',
+    icon: 'code' as const,
   },
   {
-    title: 'Networking Stack',
-    description: 'Complete TCP/IP stack implementation from scratch including Ethernet, IPv4, ICMP, UDP, and TCP.',
+    title: 'Full TCP/IP Stack',
+    description: 'Complete networking with RTL8139 driver, DNS resolver, ARP, ICMP ping, UDP, and TCP with congestion control.',
     icon: 'network' as const,
   },
   {
-    title: 'Async Concurrency',
-    description: "Modern cooperative multitasking using Rust's async/await pattern.",
+    title: 'Async/Await Runtime',
+    description: 'Cooperative multitasking with waker-based scheduling, async keyboard/mouse processing, and network I/O.',
     icon: 'cpu' as const,
   },
   {
-    title: 'Graphics Engine',
-    description: 'VGA buffer support and custom graphics engine for desktop environment.',
-    icon: 'terminal' as const,
+    title: 'Interactive Shell',
+    description: 'Command-line interface with filesystem operations, network diagnostics, command history, and scrollback buffer.',
+    icon: 'box' as const,
   },
 ];
 ---
