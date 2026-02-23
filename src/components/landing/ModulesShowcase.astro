@@ -1,0 +1,124 @@
+---
+const modules = [
+  { name: 'memory.rs', desc: 'Paging & heap allocation', color: 'text-blue-400' },
+  { name: 'network.rs', desc: 'TCP/IP stack with RTL8139', color: 'text-green-400' },
+  { name: 'graphics.rs', desc: 'VGA buffer & desktop GUI', color: 'text-purple-400' },
+  { name: 'scheduler.rs', desc: 'Async task executor', color: 'text-yellow-400' },
+  { name: 'interrupts.rs', desc: 'IDT & exception handlers', color: 'text-red-400' },
+  { name: 'fs.rs', desc: 'RAMfs & VFS layer', color: 'text-cyan-400' },
+  { name: 'drivers.rs', desc: 'Hardware device drivers', color: 'text-orange-400' },
+  { name: 'shell.rs', desc: 'Interactive CLI', color: 'text-pink-400' },
+];
+---
+
+<section class="w-full py-[var(--space-section-md)] overflow-hidden relative bg-gradient-to-b from-background via-background-secondary to-background">
+  <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+  
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Kernel <span class="text-brand-500">Modules</span>
+      </h2>
+      <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+        Modular architecture with specialized subsystems
+      </p>
+    </div>
+
+    <div id="modules-container" class="relative h-[400px] overflow-hidden rounded-xl border border-brand-500/20 bg-black/40 backdrop-blur-sm cursor-grab active:cursor-grabbing">
+      <div id="modules-scroll" class="absolute top-0 left-0 right-0 flex flex-col gap-4 p-6">
+        {[...modules, ...modules].map((module) => (
+          <div class="flex items-center gap-4 bg-gray-900/60 rounded-lg p-4 border border-gray-800 hover:border-brand-500/50 transition-all min-h-[80px] group select-none">
+            <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+            <div class="flex-1">
+              <div class={`font-mono font-bold ${module.color} group-hover:text-brand-400 transition-colors`}>
+                {module.name}
+              </div>
+              <div class="text-sm text-gray-400">{module.desc}</div>
+            </div>
+            <div class="text-gray-600 group-hover:text-brand-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/80 to-transparent pointer-events-none z-10"></div>
+      <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10"></div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  if (typeof window !== 'undefined') {
+    const container = document.getElementById('modules-container');
+    const scrollElement = document.getElementById('modules-scroll');
+    
+    if (container && scrollElement) {
+      let scrollPos = 0;
+      let isDragging = false;
+      let startY = 0;
+      let startScroll = 0;
+      let autoScrollSpeed = 0.3;
+      let animationFrame;
+      
+      function autoScroll() {
+        if (!isDragging) {
+          scrollPos += autoScrollSpeed;
+          const maxScroll = scrollElement.scrollHeight / 2;
+          if (scrollPos >= maxScroll) {
+            scrollPos = 0;
+          }
+          scrollElement.style.transform = `translateY(-${scrollPos}px)`;
+        }
+        animationFrame = requestAnimationFrame(autoScroll);
+      }
+      
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startY = e.clientY;
+        startScroll = scrollPos;
+        container.style.cursor = 'grabbing';
+      });
+      
+      container.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaY = startY - e.clientY;
+        scrollPos = startScroll + deltaY;
+        
+        const maxScroll = scrollElement.scrollHeight / 2;
+        if (scrollPos < 0) scrollPos = maxScroll + scrollPos;
+        if (scrollPos >= maxScroll) scrollPos = scrollPos - maxScroll;
+        
+        scrollElement.style.transform = `translateY(-${scrollPos}px)`;
+      });
+      
+      const stopDragging = () => {
+        if (isDragging) {
+          isDragging = false;
+          container.style.cursor = 'grab';
+        }
+      };
+      
+      container.addEventListener('mouseup', stopDragging);
+      container.addEventListener('mouseleave', stopDragging);
+      
+      container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        scrollPos += e.deltaY * 0.5;
+        const maxScroll = scrollElement.scrollHeight / 2;
+        if (scrollPos < 0) scrollPos = maxScroll + scrollPos;
+        if (scrollPos >= maxScroll) scrollPos = scrollPos - maxScroll;
+      });
+      
+      autoScroll();
+    }
+  }
+</script>
+
+<style>
+  #modules-scroll {
+    transition: none;
+  }
+</style>
