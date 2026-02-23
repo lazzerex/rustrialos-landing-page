@@ -19,44 +19,58 @@ interface ScriptLine {
 const script: ScriptLine[] = [
   // Boot sequence
   { text: 'RUSTRIAL OS v0.1.0-alpha', delay: 800, type: 'info' },
-  { text: 'Booting from /dev/sda1...', delay: 400, type: 'output' },
-  { text: '✓ Memory initialized: 4096 MB', delay: 300, type: 'success' },
-  { text: '✓ CPU detected: x86_64', delay: 250, type: 'success' },
-  { text: '✓ Network drivers loaded', delay: 250, type: 'success' },
-  { text: '✓ Async runtime started', delay: 300, type: 'success' },
+  { text: 'Booting bare-metal x86-64 kernel...', delay: 400, type: 'output' },
+  { text: '✓ GDT and IDT initialized', delay: 300, type: 'success' },
+  { text: '✓ Memory: 4096 MB detected', delay: 250, type: 'success' },
+  { text: '✓ Heap allocator ready at 0x4444_4444_0000', delay: 250, type: 'success' },
+  { text: '✓ Async executor started', delay: 300, type: 'success' },
+  { text: '✓ RTL8139 network driver loaded', delay: 250, type: 'success' },
+  { text: '✓ RAMfs mounted at /', delay: 200, type: 'success' },
   { text: '', delay: 400, type: 'output' },
+  { text: 'Interactive Menu:', delay: 300, type: 'info' },
+  { text: '1. Normal Mode  2. RustrialScript  3. Graphics Demo', delay: 200, type: 'output' },
+  { text: '4. Hardware Info  5. Help  6. Desktop', delay: 200, type: 'output' },
+  { text: '', delay: 600, type: 'output' },
   
-  // System prompt
-  { text: 'rustrial:~$ ls /kernel/modules', delay: 1000, type: 'command' },
-  { text: 'memory.rs  network.rs  graphics.rs  scheduler.rs', delay: 600, type: 'output' },
+  // Enter shell
+  { text: '[Enter: 6 - Desktop Shell]', delay: 800, type: 'info' },
   { text: '', delay: 300, type: 'output' },
   
   // Network command
-  { text: 'rustrial:~$ netstat -i', delay: 1200, type: 'command' },
-  { text: '◐ Querying network interfaces...', delay: 500, type: 'spinner' },
-  { text: 'Interface  Status    IP Address      ', delay: 300, type: 'output' },
-  { text: 'eth0       UP        192.168.1.100   ', delay: 200, type: 'output' },
-  { text: 'lo         UP        127.0.0.1       ', delay: 200, type: 'output' },
+  { text: 'rustrial:~$ ifconfig', delay: 1200, type: 'command' },
+  { text: 'eth0: UP  MAC: 52:54:00:12:34:56', delay: 300, type: 'output' },
+  { text: '      IP: 10.0.2.15/24', delay: 200, type: 'output' },
   { text: '', delay: 400, type: 'output' },
   
-  // Process command
-  { text: 'rustrial:~$ ps aux', delay: 1000, type: 'command' },
-  { text: 'PID    NAME             MEMORY    STATUS', delay: 300, type: 'output' },
-  { text: '1      kernel           2048 KB   running', delay: 150, type: 'output' },
-  { text: '2      async_runtime    512 KB    running', delay: 150, type: 'output' },
-  { text: '3      network_stack    1024 KB   running', delay: 150, type: 'output' },
+  // Ping with DNS
+  { text: 'rustrial:~$ ping google.com', delay: 1200, type: 'command' },
+  { text: '◐ Resolving DNS...', delay: 500, type: 'spinner' },
+  { text: 'PING 142.250.185.46: 56 bytes', delay: 300, type: 'output' },
+  { text: '64 bytes from 142.250.185.46: icmp_seq=1 ttl=64 time=2.3ms', delay: 300, type: 'success' },
+  { text: '64 bytes from 142.250.185.46: icmp_seq=2 ttl=64 time=1.8ms', delay: 300, type: 'success' },
   { text: '', delay: 400, type: 'output' },
   
-  // Memory stats
-  { text: 'rustrial:~$ free -h', delay: 1000, type: 'command' },
-  { text: '              Total    Used    Free', delay: 300, type: 'output' },
-  { text: 'Memory:       4096 MB  1536 MB 2560 MB', delay: 200, type: 'output' },
-  { text: 'Heap:         Safe     0 leaks ✓', delay: 400, type: 'success' },
+  // Filesystem
+  { text: 'rustrial:~$ ls /scripts', delay: 1000, type: 'command' },
+  { text: 'fibonacci.rscript  factorial.rscript  prime_checker.rscript', delay: 300, type: 'output' },
+  { text: '', delay: 400, type: 'output' },
+  
+  // Run script
+  { text: 'rustrial:~$ run /scripts/fibonacci.rscript', delay: 1200, type: 'command' },
+  { text: 'Running RustrialScript...', delay: 300, type: 'info' },
+  { text: '0 1 1 2 3 5 8 13 21 34', delay: 400, type: 'output' },
+  { text: '', delay: 600, type: 'output' },
+  
+  // Hardware info  
+  { text: 'rustrial:~$ rustrialfetch', delay: 1000, type: 'command' },
+  { text: 'OS: Rustrial OS v0.1.0-alpha', delay: 200, type: 'output' },
+  { text: 'Kernel: Bare metal x86-64', delay: 150, type: 'output' },
+  { text: 'Memory: 100% Safe - 0 leaks ✓', delay: 200, type: 'success' },
   { text: '', delay: 600, type: 'output' },
   
   // Final message
-  { text: 'rustrial:~$ echo "Welcome to Rustrial OS!"', delay: 1000, type: 'command' },
-  { text: 'Welcome to Rustrial OS! 🚀', delay: 0, type: 'info' },
+  { text: 'rustrial:~$ echo "Code Safe. Run Fast."', delay: 1000, type: 'command' },
+  { text: 'Code Safe. Run Fast.', delay: 0, type: 'info' },
 ];
 
 export function TerminalDemo() {
