@@ -1,0 +1,44 @@
+---
+const technologies = [
+  { name: 'Rust', x: '10%', y: '20%', delay: '0s', size: 'text-xl' },
+  { name: 'TCP/IP', x: '85%', y: '15%', delay: '1s', size: 'text-lg' },
+  { name: 'Async', x: '15%', y: '70%', delay: '2s', size: 'text-base' },
+  { name: 'x86_64', x: '75%', y: '65%', delay: '1.5s', size: 'text-xl' },
+  { name: 'VGA', x: '40%', y: '25%', delay: '0.5s', size: 'text-base' },
+  { name: 'DNS', x: '60%', y: '80%', delay: '2.5s', size: 'text-base' },
+  { name: 'GUI', x: '90%', y: '45%', delay: '1.8s', size: 'text-lg' },
+  { name: 'Shell', x: '25%', y: '50%', delay: '0.8s', size: 'text-lg' },
+  { name: 'RAMfs', x: '50%', y: '10%', delay: '3s', size: 'text-base' },
+  { name: 'QEMU', x: '70%', y: '35%', delay: '2.2s', size: 'text-base' },
+];
+---
+
+<div class="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
+  {technologies.map((tech) => (
+    <div 
+      class={`absolute ${tech.size} font-mono font-bold text-brand-500/30 animate-float blur-[0.5px]`}
+      style={`left: ${tech.x}; top: ${tech.y}; animation-delay: ${tech.delay}; animation-duration: ${Math.random() * 2 + 3}s;`}
+    >
+      {tech.name}
+    </div>
+  ))}
+  
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"></div>
+</div>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-10px);
+    }
+    75% {
+      transform: translateY(-25px) translateX(5px);
+    }
+  }
+</style>
