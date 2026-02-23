@@ -10,123 +10,162 @@ import TechStack from '@/components/landing/TechStack.astro';
 import Features from '@/components/landing/Features.astro';
 import CodeShowcase from '@/components/landing/CodeShowcase.astro';
 import GettingStarted from '@/components/landing/GettingStarted.astro';
+import ModulesShowcase from '@/components/landing/ModulesShowcase.astro';
+import MetricsSlider from '@/components/landing/MetricsSlider.astro';
+import FloatingTech from '@/components/landing/FloatingTech.astro';
+import CommandShowcase from '@/components/landing/CommandShowcase.astro';
+import { ShellDemo } from '@/components/landing/ShellDemo';
 ---
 
 <LandingLayout
   title="The Modern Rust Operating System"
-  description="A hobbyist x86-64 bare-metal operating system kernel written in Rust. Memory safe, high performance, and fully featured with networking, async concurrency, and more."
+  description="A hobbyist x86-64 bare-metal OS kernel written in Rust. Features interactive menu, desktop GUI, RustrialScript language, full TCP/IP stack with DNS, async/await runtime, and shell with filesystem operations."
 >
   <main class="flex flex-col items-center">
-    {/* Hero Section with Terminal Demo */}
-    <Hero layout="split" size="xl" showGrid showBlob>
-      <div slot="badge" class="animate-fade-in-up delay-0">
-        <Badge variant="brand" pill pulse>
-          v0.1.0-alpha Public Release
-        </Badge>
-      </div>
-
-      <h1 slot="title" class="animate-fade-in-up delay-1">
-        RUSTRIAL <span class="text-brand-500">OS</span>
-      </h1>
-
-      <p slot="description" class="animate-fade-in-up delay-2">
-        A strictly hobbyist x86-64 bare-metal operating system kernel written in Rust.<br />
-        <span class="text-brand-500 font-bold">Code Safe. Run Fast.</span>
-      </p>
-
-      <Fragment slot="actions">
-        <div class="animate-fade-in-up delay-3">
-          <Button size="lg" href="#download">
-            <Icon name="download" size="sm" />
-            Get Started
-          </Button>
+    <div class="w-full relative">
+      <FloatingTech />
+      
+      <Hero layout="split" size="xl" showGrid showBlob>
+        <div slot="badge" class="animate-fade-in-up delay-0">
+          <Badge variant="brand" pill pulse>
+            v0.1.0-alpha Public Release
+          </Badge>
         </div>
-        <div class="animate-fade-in-up delay-4">
-          <Button
-            size="lg"
-            variant="outline"
-            href="https://github.com/lazzerex/rustrial-os"
-            target="_blank"
-          >
-            <Icon name="github" size="sm" />
-            View on GitHub
-          </Button>
-        </div>
-      </Fragment>
 
-      {/* Interactive Terminal Demo */}
-      <div slot="aside" class="animate-slide-in-right animation-delay-400">
-        <TerminalDemo client:load />
-      </div>
-    </Hero>
+        <h1 slot="title" class="animate-fade-in-up delay-1">
+          RUSTRIAL <span class="text-brand-500">OS</span>
+        </h1>
+
+        <p slot="description" class="animate-fade-in-up delay-2">
+          A strictly hobbyist x86-64 bare-metal operating system kernel written in Rust.<br />
+          <span class="text-brand-500 font-bold">Code Safe. Run Fast.</span>
+        </p>
+
+        <Fragment slot="actions">
+          <div class="animate-fade-in-up delay-3">
+            <Button size="lg" href="#download">
+              <Icon name="download" size="sm" />
+              Get Started
+            </Button>
+          </div>
+          <div class="animate-fade-in-up delay-4">
+            <Button
+              size="lg"
+              variant="outline"
+              href="https://github.com/lazzerex/rustrial-os"
+              target="_blank"
+            >
+              <Icon name="github" size="sm" />
+              View on GitHub
+            </Button>
+          </div>
+        </Fragment>
+
+        <div slot="aside" class="animate-slide-in-right animation-delay-400">
+          <TerminalDemo client:load />
+        </div>
+      </Hero>
+    </div>
 
     {/* Stats Section */}
     <Stats />
 
-    {/* Marquee Banner */}
-    <div class="w-full bg-brand-900/10 border-y border-brand-900/20 overflow-hidden py-8 md:py-12 relative">
-      <div class="flex whitespace-nowrap overflow-hidden">
-        <div class="animate-marquee flex gap-8 md:gap-12 pr-8 md:pr-12 text-brand-500/90 font-black font-mono tracking-widest uppercase text-2xl md:text-4xl">
-          <span>Memory Safety</span>
-          <span class="text-foreground/20">/</span>
-          <span>Bare Metal</span>
-          <span class="text-foreground/20">/</span>
-          <span>Async Await</span>
-          <span class="text-foreground/20">/</span>
-          <span>Custom Bootloader</span>
-          <span class="text-foreground/20">/</span>
-          <span>Networking</span>
-          <span class="text-foreground/20">/</span>
-          <span>No STD</span>
-          <span class="text-foreground/20">/</span>
-          <span>x86_64</span>
-          <span class="text-foreground/20">/</span>
-          <span>POSIX Compliant</span>
-          <span class="text-foreground/20">/</span>
-        </div>
-        <div class="animate-marquee flex gap-8 md:gap-12 pr-8 md:pr-12 text-brand-500/90 font-black font-mono tracking-widest uppercase text-2xl md:text-4xl" aria-hidden="true">
-          <span>Memory Safety</span>
-          <span class="text-foreground/20">/</span>
-          <span>Bare Metal</span>
-          <span class="text-foreground/20">/</span>
-          <span>Async Await</span>
-          <span class="text-foreground/20">/</span>
-          <span>Custom Bootloader</span>
-          <span class="text-foreground/20">/</span>
-          <span>Networking</span>
-          <span class="text-foreground/20">/</span>
-          <span>No STD</span>
-          <span class="text-foreground/20">/</span>
-          <span>x86_64</span>
-          <span class="text-foreground/20">/</span>
-          <span>POSIX Compliant</span>
-          <span class="text-foreground/20">/</span>
+    <div class="w-full relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 via-brand-500/10 to-brand-500/5"></div>
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-500 to-transparent animate-shimmer"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-500 to-transparent animate-shimmer" style="animation-delay: 1.5s;"></div>
+      </div>
+      
+      <div class="relative border-y border-brand-500/30 backdrop-blur-sm bg-black/40">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNlZjQ0NDQiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2djhoOHYtOGgtOHpNMTYgMzZ2OGg4di04aC04eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+        
+        <div class="py-8 md:py-12 relative">
+          <div class="flex whitespace-nowrap overflow-hidden">
+            <div class="animate-marquee flex gap-8 md:gap-12 pr-8 md:pr-12 text-brand-400 font-black font-mono tracking-widest uppercase text-2xl md:text-4xl [text-shadow:0_0_30px_rgba(239,68,68,0.3)]">
+              <span class="hover:text-brand-300 transition-colors cursor-default">Memory Safety</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Desktop GUI</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">RustrialScript VM</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Interactive Shell</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">TCP/IP + DNS</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Async/Await</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">PS/2 Mouse</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Bare Metal</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">x86_64</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">RTL8139 Driver</span>
+              <span class="text-brand-500/40">◆</span>
+            </div>
+            <div class="animate-marquee flex gap-8 md:gap-12 pr-8 md:pr-12 text-brand-400 font-black font-mono tracking-widest uppercase text-2xl md:text-4xl [text-shadow:0_0_30px_rgba(239,68,68,0.3)]" aria-hidden="true">
+              <span class="hover:text-brand-300 transition-colors cursor-default">Memory Safety</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Desktop GUI</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">RustrialScript VM</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Interactive Shell</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">TCP/IP + DNS</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Async/Await</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">PS/2 Mouse</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">Bare Metal</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">x86_64</span>
+              <span class="text-brand-500/40">◆</span>
+              <span class="hover:text-brand-300 transition-colors cursor-default">RTL8139 Driver</span>
+              <span class="text-brand-500/40">◆</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    {/* Tech Stack */}
     <TechStack />
 
-    {/* Code Showcase */}
+    <ModulesShowcase />
+
     <CodeShowcase />
 
-    {/* About Section */}
-    <section class="max-w-4xl px-4 sm:px-6 w-full py-[var(--space-section-md)] text-center bg-background-secondary">
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8 scroll-fade-in-up">
-        Why <span class="text-brand-500">Rustrial OS?</span>
-      </h2>
-      <p class="text-base sm:text-lg text-foreground-muted leading-relaxed mb-6 md:mb-8 scroll-fade-in-up delay-1">
-        Rustrial OS is built from the ground up to demonstrate how modern language features can be applied to low-level systems programming. 
-        By leveraging Rust's ownership model, we achieve memory safety without a garbage collector, ensuring predictable performance suitable for real-time applications.
-      </p>
-      <div class="h-px w-16 sm:w-24 bg-brand-500 mx-auto scroll-scale-in delay-2"></div>
+    <MetricsSlider />
+
+    <section class="max-w-4xl px-4 sm:px-6 w-full py-[var(--space-section-md)] text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-background via-background-secondary to-background opacity-50"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent"></div>
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent"></div>
+      
+      <div class="relative z-10">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8 scroll-fade-in-up">
+          Why <span class="text-brand-500">Rustrial OS?</span>
+        </h2>
+        <p class="text-base sm:text-lg text-foreground-muted leading-relaxed mb-6 md:mb-8 scroll-fade-in-up delay-1">
+          Rustrial OS demonstrates modern systems programming with Rust, featuring an interactive menu system, Desktop GUI with mouse support, RustrialScript language with VM, full shell with filesystem operations, and complete TCP/IP networking including DNS resolution. 
+          Built from scratch with zero dependencies on standard library, it achieves memory safety without garbage collection.
+        </p>
+        <div class="flex items-center justify-center gap-4 scroll-scale-in delay-2">
+          <div class="h-px w-16 sm:w-24 bg-gradient-to-r from-transparent to-brand-500"></div>
+          <div class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></div>
+          <div class="h-px w-16 sm:w-24 bg-gradient-to-l from-transparent to-brand-500"></div>
+        </div>
+      </div>
     </section>
 
-    {/* Features Grid */}
     <Features />
 
-    {/* Getting Started */}
+    <CommandShowcase />
+
+    <ShellDemo client:load />
+
     <GettingStarted />
   </main>
 </LandingLayout>
