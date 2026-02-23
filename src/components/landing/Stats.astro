@@ -7,8 +7,10 @@ import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 ---
 
-<section class="w-full py-[var(--space-section-md)] bg-background-secondary">
-  <div class="max-w-7xl mx-auto px-6">
+<section class="w-full py-[var(--space-section-md)] bg-gradient-to-b from-background via-background-secondary to-background relative overflow-hidden">
+  <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+  
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
     <div class="text-center mb-16">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">
         Built for <span class="text-brand-500">Performance</span>
@@ -75,16 +77,16 @@ import Icon from '@/components/ui/primitives/Icon/Icon.astro';
     {/* Additional Info */}
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="text-center p-6 rounded-lg bg-background border border-border hover-lift scroll-scale-in delay-0">
-        <div class="text-2xl font-bold text-brand-500 mb-2">TCP/IP Stack</div>
-        <p class="text-sm text-foreground-muted">Full networking implementation with ARP, ICMP, UDP, TCP</p>
+        <div class="text-2xl font-bold text-brand-500 mb-2">RTL8139 Driver</div>
+        <p class="text-sm text-foreground-muted">Network card driver with DMA and DNS resolver support</p>
       </div>
       <div class="text-center p-6 rounded-lg bg-background border border-border hover-lift scroll-scale-in delay-1">
-        <div class="text-2xl font-bold text-brand-500 mb-2">Async/Await</div>
-        <p class="text-sm text-foreground-muted">Cooperative multitasking with native async support</p>
+        <div class="text-2xl font-bold text-brand-500 mb-2">RAMfs + VFS</div>
+        <p class="text-sm text-foreground-muted">Virtual filesystem with in-memory storage and script embedding</p>
       </div>
       <div class="text-center p-6 rounded-lg bg-background border border-border hover-lift scroll-scale-in delay-2">
-        <div class="text-2xl font-bold text-brand-500 mb-2">Custom Bootloader</div>
-        <p class="text-sm text-foreground-muted">Written in x86 assembly and Rust for full control</p>
+        <div class="text-2xl font-bold text-brand-500 mb-2">Hardware Detection</div>
+        <p class="text-sm text-foreground-muted">CPU info, PCI enumeration, and RTC via native C/Assembly</p>
       </div>
     </div>
   </div>
