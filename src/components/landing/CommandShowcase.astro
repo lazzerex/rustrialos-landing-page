@@ -1,0 +1,52 @@
+---
+const commands = [
+  { cmd: 'ping google.com', desc: 'DNS resolution & ICMP', icon: 'network' },
+  { cmd: 'ls /scripts', desc: 'Filesystem operations', icon: 'folder' },
+  { cmd: 'run fibonacci.rscript', desc: 'Execute RustrialScript', icon: 'code' },
+  { cmd: 'ifconfig', desc: 'Network configuration', icon: 'settings' },
+  { cmd: 'rustrialfetch', desc: 'System information', icon: 'info' },
+  { cmd: 'cat /kernel/modules', desc: 'View kernel modules', icon: 'file' },
+];
+---
+
+<section class="w-full py-16 bg-gradient-to-b from-background-secondary to-background overflow-hidden relative">
+  <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+  
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Interactive <span class="text-brand-500">Shell</span>
+      </h2>
+      <p class="text-lg text-foreground-muted">
+        Full-featured command-line interface with history and scrollback
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {commands.map((item, i) => (
+        <div 
+          class={`group relative overflow-hidden rounded-lg border border-brand-500/20 bg-black/40 backdrop-blur-sm hover:border-brand-500/50 transition-all scroll-slide-in-${i % 2 === 0 ? 'left' : 'right'} delay-${i % 6}`}
+        >
+          <div class="absolute inset-0 bg-gradient-to-r from-brand-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <div class="relative p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-brand-500/10 flex items-center justify-center group-hover:bg-brand-500/20 transition-colors flex-shrink-0">
+              <span class="text-brand-500 text-xl">$</span>
+            </div>
+            
+            <div class="flex-1 min-w-0">
+              <div class="font-mono text-brand-400 font-semibold mb-1 truncate">
+                rustrial:~$ {item.cmd}
+              </div>
+              <div class="text-sm text-gray-400">
+                {item.desc}
+              </div>
+            </div>
+            
+            <div class="w-1 h-8 bg-brand-500 opacity-0 group-hover:opacity-100 transition-opacity animate-pulse"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

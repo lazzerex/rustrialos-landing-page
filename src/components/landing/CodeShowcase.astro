@@ -7,60 +7,54 @@ import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 
 const codeExamples = [
   {
-    title: 'Memory Allocator',
-    badge: 'allocator.rs',
-    code: `pub struct BumpAllocator {
-    heap_start: usize,
-    heap_end: usize,
-    next: AtomicUsize,
-}
-
-impl BumpAllocator {
-    pub const fn new() -> Self {
-        BumpAllocator {
-            heap_start: 0,
-            heap_end: 0,
-            next: AtomicUsize::new(0),
+    title: 'Interactive Menu',
+    badge: 'rustrial_menu.rs',
+    code: `pub fn show_menu() {
+    loop {
+        println!(\"1. Normal Mode\");
+        println!(\"2. RustrialScript\");
+        println!(\"3. Graphics Demo\");
+        println!(\"4. Hardware Info\");
+        println!(\"5. Help\");
+        println!(\"6. Desktop\");
+        
+        match read_key() {
+            b'1' => normal_mode(),
+            b'2' => script_menu(),
+            b'6' => desktop::launch(),
+            _ => continue,
         }
     }
 }`,
   },
   {
-    title: 'Async Runtime',
-    badge: 'executor.rs',
-    code: `pub struct Executor {
-    task_queue: Arc<ArrayQueue<TaskId>>,
-}
-
-impl Executor {
-    pub fn new() -> Self {
-        Executor {
-            task_queue: Arc::new(
-                ArrayQueue::new(100)
-            ),
-        }
-    }
-    
-    pub fn spawn(&self, task: Task) {
-        self.task_queue.push(task.id)
-            .expect("queue full");
-    }
-}`,
-  },
-  {
-    title: 'Network Stack',
+    title: 'TCP/IP Stack',
     badge: 'tcp.rs',
     code: `pub async fn tcp_connect(
-    addr: IpAddr,
-    port: u16
-) -> Result<TcpStream> {
-    let socket = Socket::new()?;
-    socket.connect(addr, port).await?;
+    dst_ip: Ipv4Addr,
+    dst_port: u16,
+) -> Result<TcpSocket> {
+    let socket = TcpSocket::new();
+    socket.send_syn(dst_ip, dst_port);
+    socket.wait_for_syn_ack().await?;
+    socket.send_ack();
+    socket.state = Connected;
     
-    Ok(TcpStream {
-        socket,
-        state: Connected,
-    })
+    Ok(socket)
+}`,
+  },
+  {
+    title: 'Shell Commands',
+    badge: 'shell.rs',
+    code: `match cmd.as_str() {
+    "ls" => list_directory(args),
+    "cat" => read_file(args),
+    "mkdir" => create_dir(args),
+    "ping" => ping_host(args).await,
+    "ifconfig" => show_interfaces(),
+    "run" => execute_script(args),
+    "clear" => vga_clear(),
+    _ => println!("Unknown: {}", cmd),
 }`,
   },
 ];
@@ -73,7 +67,7 @@ impl Executor {
         See the <span class="text-brand-500">Code</span>
       </h2>
       <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
-        Real examples from the Rustrial OS kernel showing memory safety and async patterns
+        Real examples from the Rustrial OS kernel: interactive menu, networking, and shell
       </p>
     </div>
 
