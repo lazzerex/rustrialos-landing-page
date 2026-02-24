@@ -2,8 +2,10 @@
 
 <div align="center">
 
-![Rustrial OS](https://img.shields.io/badge/Rustrial_OS-v0.1.0--alpha-ef4444?style=for-the-badge&logo=rust&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+<p align="center">
+  <img src="https://img.shields.io/badge/Rustrial_OS-v0.1.0--alpha-ef4444?style=flat&logo=rust&logoColor=white"/>
+  <img src="https://img.shields.io/badge/License-MIT-22c55e?style=flat"/>
+</p>
 
 **A modern, high-performance landing page for Rustrial OS**
 
@@ -11,10 +13,12 @@
 
 ### Tech Stack
 
-![Astro](https://img.shields.io/badge/Astro-5.17.1-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+<p align="center">
+  <img src="https://img.shields.io/badge/Astro-5.17.1-BC52EE?style=flat&logo=astro&logoColor=white"/>
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat&logo=tailwindcss&logoColor=white"/>
+</p>
 
 [Live Demo](https://rustrial.vercel.app) • [Documentation](#) • [Report Bug](https://github.com/lazzerex/rustrial-os/issues)
 
